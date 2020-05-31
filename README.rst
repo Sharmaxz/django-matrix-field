@@ -3,10 +3,6 @@ django-matrix-field
 
 A Django app providing database and form fields for matrices (arrays of arrays).
 
-This is a fork from here__.
-
-__ https://github.com/mfogel/django-matrix-field
-
 Examples
 --------
 
@@ -60,4 +56,4 @@ Found a Bug?
 To file a bug or submit a patch, please head over to `django-matrix-field on github`__.
 
 
-__ https://github.com/Sharmaxz/django-matrix-field/
+__ https://github.com/Sharmaxz/django-matrix-field
