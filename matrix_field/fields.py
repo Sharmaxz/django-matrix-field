@@ -14,23 +14,25 @@ class MatrixField(models.Field):
     """
 
     description = "A matrix"
-    __metaclass__ = models.SubfieldBase
+    #_metaclass__ = models.SubfieldBase
 
     MAX_LENGTH = 255
 
-    def __init__(self, datatype=None, dimensions=None, **kwargs):
+    def __init__(self, datatype='int', dimensions=(3,3), **kwargs):
         if not datatype or not dimensions:
-            raise ImproperlyConfigured("Required kwarg 'datatype' or "
-                                       "'dimensions' missing")
-        self.datatype, self.dimensions = datatype, dimensions
-        defaults = {
-            'max_length': self.MAX_LENGTH,
-            'default': None,
-        }
-        defaults.update(kwargs)
-        super(MatrixField, self).__init__(**defaults)
-        self.validators.append(DataTypeValidator(self.datatype))
-        self.validators.append(DimensionsValidator(self.dimensions))
+            print('a', self)
+            # raise ImproperlyConfigured("Required kwarg 'datatype' or "
+            #                            "'dimensions' missing")
+        else:
+            self.datatype, self.dimensions = datatype, dimensions
+            defaults = {
+                'max_length': self.MAX_LENGTH,
+                'default': None,
+            }
+            defaults.update(kwargs)
+            super(MatrixField, self).__init__(**defaults)
+            self.validators.append(DataTypeValidator(self.datatype))
+            self.validators.append(DimensionsValidator(self.dimensions))
 
     def get_internal_type(self):
         # TODO: take advantage of postgres matrix type
@@ -57,7 +59,8 @@ class MatrixField(models.Field):
             'form_class': MatrixFormField,
         }
         defaults.update(kwargs)
-        return super(MatrixField, self).formfield(**defaults)
+        #return super(MatrixField, self).formfield(**defaults)
+        return super().formfield(**{**defaults, **kwargs})
 
 
 # South support
